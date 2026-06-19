@@ -19,9 +19,10 @@ export const POST = withAdminAuth(async (req, session) => {
 
   if (existing) {
     const oldContent = existing.content;
+    const currentVersion = existing.version || 1;
     const { data } = await supabaseAdmin
       .from('page_content')
-      .update({ content: body.content, version: supabaseAdmin.rpc('increment'), updated_at: new Date().toISOString() })
+      .update({ content: body.content, version: currentVersion + 1, updated_at: new Date().toISOString() })
       .eq('id', existing.id)
       .select()
       .single();

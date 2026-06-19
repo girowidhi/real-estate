@@ -128,7 +128,7 @@ export async function fetchProperties(filters?: {
   if (filters?.minPrice) query = query.gte('price', filters.minPrice);
   if (filters?.maxPrice) query = query.lte('price', filters.maxPrice);
   if (filters?.bedrooms) query = query.gte('bedrooms', filters.bedrooms);
-  if (filters?.featured) query = query.eq('featured', 1);
+  if (filters?.featured) query = query.eq('featured', true);
   query = query.eq('status', filters?.status || 'available').order('created_at', { ascending: false });
   if (filters?.limit) query = query.limit(filters.limit);
   const { data, error } = await query;
@@ -153,7 +153,7 @@ export async function fetchPropertyBySlug(slug: string): Promise<Property | null
 }
 
 export async function fetchBlogPosts(filters?: { category?: string; slug?: string }): Promise<BlogPost[]> {
-  let query = supabase.from('blog_posts').select('*').eq('published', 1);
+  let query = supabase.from('blog_posts').select('*').eq('published', true);
   if (filters?.category) query = query.eq('category', filters.category);
   if (filters?.slug) query = query.eq('slug', filters.slug);
   query = query.order('created_at', { ascending: false });
@@ -180,7 +180,7 @@ export async function fetchAgentBySlug(slug: string): Promise<Agent | null> {
 }
 
 export async function fetchFAQItems(): Promise<FAQItem[]> {
-  const { data, error } = await supabase.from('faq_items').select('*').eq('is_published', 1).order('sort_order');
+  const { data, error } = await supabase.from('faq_items').select('*').eq('is_published', true).order('sort_order');
   if (error) throw error;
   return ((data as any[]) || []).map(toFAQItem);
 }
@@ -199,7 +199,7 @@ export async function fetchNeighborhoods(): Promise<NeighborhoodGuide[]> {
 }
 
 export async function fetchTestimonials(): Promise<any[]> {
-  const { data, error } = await supabase.from('testimonials').select('*').eq('is_published', 1).order('sort_order');
+  const { data, error } = await supabase.from('testimonials').select('*').eq('is_published', true).order('sort_order');
   if (error) throw error;
   return ((data as any[]) || []).map((r: any) => ({
     name: r.name, text: r.content, photo: r.avatar || '',
@@ -231,7 +231,7 @@ export interface PageContent {
 }
 
 export async function fetchPageContent(pageKey?: string, sectionKey?: string): Promise<PageContent[]> {
-  let query = supabase.from('page_content').select('*').eq('is_published', 1);
+  let query = supabase.from('page_content').select('*').eq('is_published', true);
   if (pageKey) query = query.eq('page_key', pageKey);
   if (sectionKey) query = query.eq('section_key', sectionKey);
   const { data, error } = await query;
