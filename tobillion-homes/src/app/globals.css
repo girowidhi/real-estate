@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-100: #d1fae5;
+  --color-emerald-200: #a7f3d0;
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #047857;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #064e3b;
+  --color-emerald-800: #065f46;
+  --color-emerald-900: #022c22;
+
+  --color-gold-400: #F59E0B;
+  --color-gold-500: #D97706;
+  --color-gold-600: #B45309;
+  --color-gold-700: #92400e;
+
+  --color-mesh-gradient: linear-gradient(135deg, #047857 0%, #F59E0B 100%);
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes float-delay {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes mesh-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(245, 158, 11, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(245, 158, 11, 0.6); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delay {
+  animation: float-delay 8s ease-in-out infinite 2s;
+}
+
+.animate-mesh {
+  background-size: 200% 200%;
+  animation: mesh-shift 5s ease infinite;
+}
+
+.animate-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out;
+}
+
+.mosaic-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .mosaic-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.aspect-mosaic {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-mosaic-tall {
+  aspect-ratio: 3 / 4;
+}
+
+.aspect-mosaic-square {
+  aspect-ratio: 1 / 1;
+}
+
+.scarcity-badge {
+  @apply bg-gold-400 text-black text-xs font-bold px-3 py-1 rounded-full inline-flex items-center gap-1;
+}
+
+.hover-card {
+  @apply transition-all duration-300;
+}
+
+.hover-card:hover {
+  @apply -translate-y-1;
+  box-shadow: 0 20px 40px rgba(4, 120, 87, 0.15);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: #047857;
+  color: white;
+}
+
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2;
+}
+
+.hover-glow {
+  @apply transition-all duration-300;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
